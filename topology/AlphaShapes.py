@@ -15,8 +15,8 @@ a = sum(a,[])
 b = sum(b,[])
 c = sum(c,[])
 trace00 = go.Scatter3d(x=a,y=b,z=c,mode="markers",
-                       marker=dict(size=.5))
-trace01 = go.Mesh3d(x=a,y=b,z=c,color="#FFFFFF",opacity=.15)
+                       marker=dict(size=10,symbol="diamond",color="red"))
+trace01 = go.Mesh3d(x=a,y=b,z=c,alphahull=10.0,color="#FFFFFF",opacity=.50)
 
 layout = go.Layout(title="Alpha Shape")
 

@@ -25,37 +25,32 @@ simplices=tri.simplices
 
 fig = FF.create_trisurf(x=x,y=y,z=z,simplices=simplices,
                         title="Torus",
-                        colormap="Portland",
-                        aspectratio=dict(x=1,y=1,z=0.3))
-fig2 =FF.create_trisurf(x=x,y=y,z=z,simplices=simplices,
-                        title="Torus V. 2",
                         colormap="Earth",
-                        aspectratio=dict(x=1,y=1,z=1))
-fig3 =FF.create_trisurf(x=x,y=y,z=z,simplices=simplices,
-                        title="Torus V. 3",
-                        colormap="RdBu",
-                        aspectratio=dict(x=.2,y=.2,z=1))
-fig4=go.Scatter3d(x=x,y=y,z=z,mode="markers",marker=dict(size=.5,symbol="square",colorscale="polar"))
+                        aspectratio=dict(x=1,y=1,z=0.3))
+scatter00 = go.Scatter3d(x=x,y=y,z=z,mode="markers",name="Outline",
+                         marker=dict(size=5.0,symbol="circle-open",color="black"))
+scatter01=go.Scatter3d(x=x,y=y,z=z,mode="markers",name="Outline",
+                        marker=dict(size=.70,symbol="square",color="red"))
 
-trace01=go.Scatter(x=x,y=z,mode="markers",name="(X-Axis,Z-Axis)",marker=dict(size=.5,symbol="circle-open"))
-trace02=go.Scatter(x=x,y=y,mode="lines",name="(X-Axis,Y-Axis)",marker=dict(size=.3))
+mesh00 = go.Mesh3d(x=x,y=y,z=z,opacity=.1,color="orange",name="Mesh")
 
-layout2D=go.Layout(title="Scatter-2D Torus",yaxis=dict(title="Y-axis"),
-                 xaxis=dict(title="X-axis"),hovermode="closest")
 
 layout=go.Layout(title="Scatter-3D Torus",yaxis=dict(title="Y-axis"),
-                 xaxis=dict(title="X-axis"),hovermode="closest")
+                 xaxis=dict(title="X-axis"),hovermode="closest",
+                 plot_bgcolor="#FFFFFF",
+                 paper_bgcolor="#FFFFFF")
+layoutS=go.Layout(title="Torus",yaxis=dict(title="Y-axis"),
+                 xaxis=dict(title="X-axis"),hovermode="closest",
+                 font=dict(family='Courier New, monospace', size=13, color="white"),
+                 plot_bgcolor="black",
+                 paper_bgcolor="black")
 
-app.layout = html.Div([
+app.layout = html.Div(children=[
     dcc.Markdown("""# Torus"""),
-    dcc.Graph(id="Torus-Graph",figure=dict(data=fig,layout=layout)),
-    dcc.Graph(id="Torus-Scatter",figure=dict(data=[fig4],layout=layout)),
-    html.H2("Version 2"),
-    dcc.Graph(id="Torus-V2",figure=dict(data=fig2)),
-    dcc.Graph(id="Torus-2D",figure=dict(data=[trace01,trace02],layout=layout2D)),
-    html.H2("Version 3"),
-    dcc.Graph(id="Torus-V3",figure=dict(data=fig3))
-])
+    dcc.Graph(id="Torus",figure=dict(data=fig,layout=go.Layout(title="Torus"))),
+    dcc.Graph(id="Torus-Scatter", figure=dict(data=[scatter01], layout=layoutS)),
+    dcc.Graph(id="Torus-Graph",figure=dict(data=[scatter00,mesh00],layout=layout))
+        ])
 
 if __name__ == "__main__":
     app.run_server()
