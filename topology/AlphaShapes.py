@@ -11,9 +11,7 @@ q = lambda i: r.randint(0,i)
 a = [[q(10001) for i in range(1000)] for j in range(10)]
 b = [[i-q(10001) for i in j] for j in a]
 c = [[i+q(10001) for i in j] for j in a]
-a = sum(a,[])
-b = sum(b,[])
-c = sum(c,[])
+a,b,c = list(map(lambda e: sum(e,[]), [a,b,c])
 trace00 = go.Scatter3d(x=a,y=b,z=c,mode="markers",
                        marker=dict(size=10,symbol="diamond",color="red"))
 trace01 = go.Mesh3d(x=a,y=b,z=c,alphahull=10.0,color="#FFFFFF",opacity=.50)
