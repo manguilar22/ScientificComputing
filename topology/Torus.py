@@ -47,10 +47,14 @@ layoutS=go.Layout(title="Torus",yaxis=dict(title="Y-axis"),
 
 app.layout = html.Div(children=[
     dcc.Markdown("""# Torus"""),
-    dcc.Graph(id="Torus",figure=dict(data=fig,layout=go.Layout(title="Torus"))),
-    dcc.Graph(id="Torus-Scatter", figure=dict(data=[scatter01], layout=layoutS)),
-    dcc.Graph(id="Torus-Graph",figure=dict(data=[scatter00,mesh00],layout=layout))
-        ])
+    dcc.Graph(id="Torus",figure=go.Figure(data=fig,layout=go.Layout(title="Torus"))),
+    dcc.Graph(id="Torus-Scatter", figure=go.Figure(data=[scatter01], layout=layoutS)),
+    dcc.Graph(id="Torus-Graph",figure=go.Figure(data=[scatter00,mesh00],layout=layout))
+        ],
+    style={
+        "width":"80%",
+        "vertical-align": "middle",
+    })
 
 if __name__ == "__main__":
     app.run_server(host="0.0.0.0",port=5000,debug=True)
